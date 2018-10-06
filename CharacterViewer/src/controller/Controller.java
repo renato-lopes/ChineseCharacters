@@ -24,6 +24,8 @@ public class Controller {
             List<ChineseCharacter> characterList = DataLoader.getData(file);
             display.initializeDisplay(characterList);
             display.setVisible(true);
+        } else {
+            System.exit(0);
         }
     }
     

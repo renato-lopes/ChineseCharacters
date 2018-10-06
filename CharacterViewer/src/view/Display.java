@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -86,6 +87,11 @@ public class Display extends javax.swing.JFrame {
         });
 
         jTextField1.setToolTipText("Digite o Pinyin");
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+        });
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Description");
@@ -184,13 +190,21 @@ public class Display extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        if (!controller.checkAnswer(currentCharacter, jTextField1.getText())) {
-            JOptionPane.showMessageDialog(rootPane, "Incorreto!");
-        } else {
-            this.correctState[this.currentPosition] = true;
-            this.updateDisplay();
+        if (!this.correctState[this.currentPosition]) {
+            if (!controller.checkAnswer(currentCharacter, jTextField1.getText())) {
+                JOptionPane.showMessageDialog(rootPane, "Incorreto!");
+            } else {
+                this.correctState[this.currentPosition] = true;
+                this.updateDisplay();
+            }
         }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            this.jButton3.doClick();
+        }
+    }//GEN-LAST:event_jTextField1KeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -240,8 +254,10 @@ public class Display extends javax.swing.JFrame {
             this.jLabel3.setText(currentCharacter.getDescription());
             if (this.correctState[this.currentPosition]) {
                 this.getContentPane().setBackground(Color.green);
+                this.jTextField1.setEditable(false);
             } else {
                 this.getContentPane().setBackground(this.defaultColor);
+                this.jTextField1.setEditable(true);
             }
         }
     }
