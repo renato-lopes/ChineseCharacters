@@ -6,6 +6,7 @@
 package controller;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.List;
 import model.ChineseCharacter;
 import model.DataLoader;
@@ -22,11 +23,16 @@ public class Controller {
         File file = FileSelector.chooseFile();
         if(file != null) {
             List<ChineseCharacter> characterList = DataLoader.getData(file);
+            shuffleList(characterList);
             display.initializeDisplay(characterList);
             display.setVisible(true);
         } else {
             System.exit(0);
         }
+    }
+    
+    private void shuffleList(List list) {
+        Collections.shuffle(list);
     }
     
     public boolean checkAnswer(ChineseCharacter c, String answer) {
