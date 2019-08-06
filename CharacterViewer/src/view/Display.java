@@ -69,21 +69,21 @@ public class Display extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Pinyin");
 
-        jButton1.setText("Anterior");
+        jButton1.setText("Previous");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Próximo");
+        jButton2.setText("Next");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
 
-        jTextField1.setToolTipText("Digite o Pinyin");
+        jTextField1.setToolTipText("Type in the character Pinyin");
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextField1KeyPressed(evt);
@@ -93,17 +93,17 @@ public class Display extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Description");
 
-        jButton3.setText("Conferir");
+        jButton3.setText("Check");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
 
-        jMenu1.setText("Arquivo");
+        jMenu1.setText("File");
 
         jCheckBoxMenuItem1.setSelected(true);
-        jCheckBoxMenuItem1.setText("Mostrar o Pinyin e a Descrição");
+        jCheckBoxMenuItem1.setText("Always Show Pinyin and Description");
         jCheckBoxMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBoxMenuItem1ActionPerformed(evt);
@@ -111,7 +111,7 @@ public class Display extends javax.swing.JFrame {
         });
         jMenu1.add(jCheckBoxMenuItem1);
 
-        jMenuItem1.setText("Sair");
+        jMenuItem1.setText("Exit");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -121,9 +121,9 @@ public class Display extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Caracteres");
+        jMenu2.setText("Characters");
 
-        jMenuItem2.setText("Reiniciar estado");
+        jMenuItem2.setText("Reset");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
@@ -204,7 +204,7 @@ public class Display extends javax.swing.JFrame {
         if (!controller.isCurrentPositionCorrect() && !jTextField1.getText().isEmpty()) {
             controller.checkAnswer(jTextField1.getText());
             if (!controller.isCurrentPositionCorrect()) {
-                JOptionPane.showMessageDialog(rootPane, "Incorreto!");
+                JOptionPane.showMessageDialog(rootPane, "Incorrect!");
             } else {
                 updateDisplay();
             }
@@ -271,11 +271,12 @@ public class Display extends javax.swing.JFrame {
                 this.jTextField1.setEditable(true);
                 this.jTextField1.setText("");
             }
+            controlPinyinDescription();
         }
     }
 
     private void controlPinyinDescription() {
-        this.jLabel2.setVisible(controller.isShowPinyinAndDescription());
-        this.jLabel3.setVisible(controller.isShowPinyinAndDescription());
+        this.jLabel2.setVisible(controller.isShowPinyinAndDescription() || controller.isCurrentPositionCorrect());
+        this.jLabel3.setVisible(controller.isShowPinyinAndDescription() || controller.isCurrentPositionCorrect());
     }
 }
