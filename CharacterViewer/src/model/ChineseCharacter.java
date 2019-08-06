@@ -20,7 +20,7 @@ public class ChineseCharacter {
         if (s == null) { 
             return false;
         }
-        return s.trim().toLowerCase().equals(pinyin);
+        return s.equals(pinyin);
     }
 
     public String getCharacter() {

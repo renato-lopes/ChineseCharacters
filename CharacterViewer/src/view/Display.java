@@ -24,15 +24,11 @@ import model.ChineseCharacter;
 public class Display extends javax.swing.JFrame {
 
     private Controller controller;
-    private List<ChineseCharacter> characters;
-    private boolean[] correctState;
-    private ChineseCharacter currentCharacter;
-    private int currentPosition;
-    private boolean showPinyinAndDescription;
     private Color defaultColor;
 
     /**
      * Creates new form Display
+     * @param controller
      */
     public Display(Controller controller) {
         initComponents();
@@ -185,16 +181,18 @@ public class Display extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        backward();
+        controller.backward();
+        updateDisplay();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        forward();
+        controller.forward();
+        updateDisplay();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jCheckBoxMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem1ActionPerformed
-        this.showPinyinAndDescription = !this.showPinyinAndDescription;
-        this.jCheckBoxMenuItem1.setSelected(this.showPinyinAndDescription);
+        controller.changeShowPinyinAndDescription();
+        this.jCheckBoxMenuItem1.setSelected(controller.isShowPinyinAndDescription());
         controlPinyinDescription();
     }//GEN-LAST:event_jCheckBoxMenuItem1ActionPerformed
 
@@ -203,12 +201,12 @@ public class Display extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        if (!this.correctState[this.currentPosition] && !jTextField1.getText().isEmpty()) {
-            if (!controller.checkAnswer(currentCharacter, jTextField1.getText())) {
+        if (!controller.isCurrentPositionCorrect() && !jTextField1.getText().isEmpty()) {
+            controller.checkAnswer(jTextField1.getText());
+            if (!controller.isCurrentPositionCorrect()) {
                 JOptionPane.showMessageDialog(rootPane, "Incorreto!");
             } else {
-                this.correctState[this.currentPosition] = true;
-                this.updateDisplay();
+                updateDisplay();
             }
         }
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -220,9 +218,7 @@ public class Display extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1KeyPressed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        for (int i = 0; i < this.correctState.length; i++) {
-            this.correctState[i] = false;
-        }
+        controller.resetCorrectState();
         updateDisplay();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
@@ -243,7 +239,7 @@ public class Display extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
-    public void initializeDisplay(List<ChineseCharacter> list) {
+    public void initializeDisplay() {
         try {
             Font font = Font.createFont(Font.TRUETYPE_FONT, new File("res/fonts/SimSun.ttf"));
 
@@ -255,29 +251,21 @@ public class Display extends javax.swing.JFrame {
         } catch (FontFormatException | IOException ex) {
             System.out.println("Um erro ocorreu! " + ex.getMessage());
         }
-        this.characters = list;
-        this.currentPosition = 0;
-        this.showPinyinAndDescription = false;
-        this.jCheckBoxMenuItem1.setSelected(false);
-        this.currentCharacter = this.characters.get(0);
-        this.correctState = new boolean[list.size()];
-        for (int i = 0; i < list.size(); i++) {
-            this.correctState[i] = false;
-        }
+        this.jCheckBoxMenuItem1.setSelected(controller.isShowPinyinAndDescription());
         this.defaultColor = this.getContentPane().getBackground();
         updateDisplay();
         controlPinyinDescription();
     }
 
     private void updateDisplay() {
-        if (currentCharacter != null) {
-            this.jLabel1.setText(currentCharacter.getCharacter());
-            this.jLabel2.setText(currentCharacter.getPinyin());
-            this.jLabel3.setText(currentCharacter.getDescription());
-            if (this.correctState[this.currentPosition]) {
+        if (controller.getCurrentCharacter() != null) {
+            this.jLabel1.setText(controller.getCurrentCharacter().getCharacter());
+            this.jLabel2.setText(controller.getCurrentCharacter().getPinyin());
+            this.jLabel3.setText(controller.getCurrentCharacter().getDescription());
+            if (controller.isCurrentPositionCorrect()) {
                 this.getContentPane().setBackground(Color.green);
                 this.jTextField1.setEditable(false);
-                this.jTextField1.setText(currentCharacter.getPinyin());
+                this.jTextField1.setText(controller.getCurrentCharacter().getPinyin());
             } else {
                 this.getContentPane().setBackground(this.defaultColor);
                 this.jTextField1.setEditable(true);
@@ -286,25 +274,8 @@ public class Display extends javax.swing.JFrame {
         }
     }
 
-    private void forward() {
-        int newPosition = (this.currentPosition + 1) % this.characters.size();
-        this.currentCharacter = this.characters.get(newPosition);
-        this.currentPosition = newPosition;
-        updateDisplay();
-    }
-
-    private void backward() {
-        int newPosition = (this.currentPosition - 1) % this.characters.size();
-        if (newPosition < 0) {
-            newPosition += this.characters.size();
-        }
-        this.currentCharacter = this.characters.get(newPosition);
-        this.currentPosition = newPosition;
-        updateDisplay();
-    }
-
     private void controlPinyinDescription() {
-        this.jLabel2.setVisible(this.showPinyinAndDescription);
-        this.jLabel3.setVisible(this.showPinyinAndDescription);
+        this.jLabel2.setVisible(controller.isShowPinyinAndDescription());
+        this.jLabel3.setVisible(controller.isShowPinyinAndDescription());
     }
 }
