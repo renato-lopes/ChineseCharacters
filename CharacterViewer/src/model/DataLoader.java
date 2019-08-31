@@ -28,15 +28,15 @@ public class DataLoader {
 
             String st;
 
+            st = br.readLine(); // Discard first line 
+            
             while ((st = br.readLine()) != null) {
+                String[] lineData = st.split(",");
                 ChineseCharacter c = new ChineseCharacter();
-                c.setCharacter(st);
-                st = br.readLine();
-                c.setPinyin(st);
-                st = br.readLine();
-                c.setDescription(st);
-                st = br.readLine();
-                c.setLevel(st);
+                c.setCharacter(lineData[0]);
+                c.setPinyin(lineData[1]);
+                c.setDescription(lineData[2]);
+                c.setLevel(lineData[3]);
                 list.add(c);
             }
         } catch (IOException ex) {
