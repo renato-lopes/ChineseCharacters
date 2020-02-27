@@ -16,12 +16,6 @@ public class ChineseCharacter {
     private String description;
     private String level;
 
-    public boolean checkCorrectPinyin(String s) {
-        if (s == null) { 
-            return false;
-        }
-        return s.equals(pinyin);
-    }
 
     public String getCharacter() {
         return character;

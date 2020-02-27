@@ -6,6 +6,7 @@
 package controller;
 
 import java.io.File;
+import java.text.Normalizer;
 import java.util.Collections;
 import java.util.List;
 import model.ChineseCharacter;
@@ -53,7 +54,13 @@ public class Controller {
     }
     
     public void checkAnswer(String answer) {
-        boolean correct = this.currentCharacter.checkCorrectPinyin(answer.trim().toLowerCase());
+        answer = answer.trim().toLowerCase().replaceAll("\\s+","");
+        answer = Normalizer.normalize(answer, Normalizer.Form.NFD).replaceAll("\\p{M}", "");
+        String char_pinyin = this.currentCharacter.getPinyin().trim().toLowerCase().replaceAll("\\s+","");
+        char_pinyin = Normalizer.normalize(char_pinyin, Normalizer.Form.NFD).replaceAll("\\p{M}", "");
+        System.out.println(char_pinyin);
+        System.out.println(answer);
+        boolean correct = char_pinyin.equals(answer);
         this.correctState[this.currentPosition] = correct;
     }
 

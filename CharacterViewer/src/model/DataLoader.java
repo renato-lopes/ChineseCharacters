@@ -36,10 +36,10 @@ public class DataLoader {
             while ((st = br.readLine()) != null) {
                 String[] lineData = st.split(",");
                 ChineseCharacter c = new ChineseCharacter();
-                c.setCharacter(lineData[0]);
-                c.setPinyin(lineData[1]);
-                c.setDescription(lineData[2]);
-                c.setLevel(lineData[3]);
+                c.setCharacter(lineData[0].trim());
+                c.setPinyin(lineData[1].trim());
+                c.setDescription(lineData[2].trim());
+                c.setLevel(lineData.length == 4 ? lineData[3].trim() : null);
                 list.add(c);
             }
         } catch (IOException ex) {
