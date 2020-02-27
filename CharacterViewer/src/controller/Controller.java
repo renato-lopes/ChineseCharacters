@@ -19,21 +19,20 @@ import view.FileSelector;
  * @author renato
  */
 public class Controller {
-    
+
     private List<ChineseCharacter> characters;
     private boolean[] correctState;
     private ChineseCharacter currentCharacter;
     private int currentPosition;
     private boolean showPinyinAndDescription;
-    
-    
-    public void startViewer(){
+
+    public void startViewer() {
         Display display = new Display(this);
         File file = FileSelector.chooseFile();
-        if(file != null) {
+        if (file != null) {
             this.characters = DataLoader.getData(file);
             shuffleList(this.characters);
-            
+
             this.currentPosition = 0;
             this.showPinyinAndDescription = false;
             this.currentCharacter = this.characters.get(0);
@@ -41,22 +40,22 @@ public class Controller {
             for (int i = 0; i < this.characters.size(); i++) {
                 this.correctState[i] = false;
             }
-            
+
             display.initializeDisplay();
             display.setVisible(true);
         } else {
             System.exit(0);
         }
     }
-    
+
     private void shuffleList(List list) {
         Collections.shuffle(list);
     }
-    
+
     public void checkAnswer(String answer) {
-        answer = answer.trim().toLowerCase().replaceAll("\\s+","");
+        answer = answer.trim().toLowerCase().replaceAll("\\s+", "");
         answer = Normalizer.normalize(answer, Normalizer.Form.NFD).replaceAll("\\p{M}", "");
-        String char_pinyin = this.currentCharacter.getPinyin().trim().toLowerCase().replaceAll("\\s+","");
+        String char_pinyin = this.currentCharacter.getPinyin().trim().toLowerCase().replaceAll("\\s+", "");
         char_pinyin = Normalizer.normalize(char_pinyin, Normalizer.Form.NFD).replaceAll("\\p{M}", "");
         System.out.println(char_pinyin);
         System.out.println(answer);
@@ -69,7 +68,7 @@ public class Controller {
             this.correctState[i] = false;
         }
     }
-    
+
     public void forward() {
         int newPosition = (this.currentPosition + 1) % this.characters.size();
         this.currentCharacter = this.characters.get(newPosition);
@@ -84,12 +83,12 @@ public class Controller {
         this.currentCharacter = this.characters.get(newPosition);
         this.currentPosition = newPosition;
     }
-    
-    public void changeShowPinyinAndDescription(){
+
+    public void changeShowPinyinAndDescription() {
         this.showPinyinAndDescription = !this.showPinyinAndDescription;
     }
-    
-    public boolean isCurrentPositionCorrect(){
+
+    public boolean isCurrentPositionCorrect() {
         return this.correctState[this.currentPosition];
     }
 
@@ -103,5 +102,13 @@ public class Controller {
 
     public boolean isShowPinyinAndDescription() {
         return showPinyinAndDescription;
+    }
+
+    public int getCurrentPosition() {
+        return this.currentPosition;
+    }
+
+    public int getCharacterCount() {
+        return this.characters.size();
     }
 }

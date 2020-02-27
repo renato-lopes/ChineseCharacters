@@ -50,13 +50,14 @@ public class Display extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        characterLabel = new javax.swing.JLabel();
+        pinyinLabel = new javax.swing.JLabel();
+        prevButton = new javax.swing.JButton();
+        nextButton = new javax.swing.JButton();
+        answerInput = new javax.swing.JTextField();
+        descriptionLabel = new javax.swing.JLabel();
+        checkButton = new javax.swing.JButton();
+        countLabel = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
@@ -68,43 +69,50 @@ public class Display extends javax.swing.JFrame {
         setTitle("Character Viewer");
         setResizable(false);
 
-        jLabel1.setFont(new java.awt.Font("Noto Sans CJK SC Bold", 0, 128)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("汉字");
+        characterLabel.setFont(new java.awt.Font("Noto Sans CJK SC Bold", 0, 128)); // NOI18N
+        characterLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        characterLabel.setText("汉字");
 
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Pinyin");
+        pinyinLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        pinyinLabel.setText("Pinyin");
 
-        jButton1.setText("Previous");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        prevButton.setText("Previous");
+        prevButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                prevButtonActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Next");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        nextButton.setText("Next");
+        nextButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                nextButtonActionPerformed(evt);
             }
         });
 
-        jTextField1.setToolTipText("Type in the character Pinyin");
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+        answerInput.setToolTipText("Type in the character Pinyin");
+        answerInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                answerInputActionPerformed(evt);
+            }
+        });
+        answerInput.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField1KeyPressed(evt);
+                answerInputKeyPressed(evt);
             }
         });
 
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Description");
+        descriptionLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        descriptionLabel.setText("Description");
 
-        jButton3.setText("Check");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        checkButton.setText("Check");
+        checkButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                checkButtonActionPerformed(evt);
             }
         });
+
+        countLabel.setText("jLabel4");
 
         jMenu1.setText("File");
 
@@ -148,53 +156,58 @@ public class Display extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 717, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(characterLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 717, Short.MAX_VALUE)
+                    .addComponent(pinyinLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField1)
+                            .addComponent(answerInput)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(prevButton, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(checkButton, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(160, 160, 160)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(nextButton, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(30, 30, 30))
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(descriptionLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(countLabel)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
+                .addComponent(countLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addComponent(characterLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pinyinLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(descriptionLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addComponent(answerInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(prevButton)
+                    .addComponent(nextButton)
+                    .addComponent(checkButton))
                 .addGap(38, 38, 38))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void prevButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prevButtonActionPerformed
         controller.backward();
         updateDisplay();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_prevButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
         controller.forward();
         updateDisplay();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_nextButtonActionPerformed
 
     private void jCheckBoxMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem1ActionPerformed
         controller.changeShowPinyinAndDescription();
@@ -206,9 +219,9 @@ public class Display extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        if (!controller.isCurrentPositionCorrect() && !jTextField1.getText().isEmpty()) {
-            controller.checkAnswer(jTextField1.getText());
+    private void checkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkButtonActionPerformed
+        if (!controller.isCurrentPositionCorrect() && !answerInput.getText().isEmpty()) {
+            controller.checkAnswer(answerInput.getText());
             if (!controller.isCurrentPositionCorrect()) {
 //                JOptionPane.showMessageDialog(rootPane, "Incorrect!");
                 this.getContentPane().setBackground(Color.red);
@@ -219,39 +232,44 @@ public class Display extends javax.swing.JFrame {
                 this.updateDisplayTimer.start();
             }
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_checkButtonActionPerformed
 
-    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+    private void answerInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_answerInputKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (controller.isCurrentPositionCorrect()){
                 controller.forward();
                 updateDisplay();
             } else {
-                this.jButton3.doClick();
+                this.checkButton.doClick();
             }
         }
-    }//GEN-LAST:event_jTextField1KeyPressed
+    }//GEN-LAST:event_answerInputKeyPressed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         controller.resetCorrectState();
         updateDisplay();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void answerInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_answerInputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_answerInputActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JTextField answerInput;
+    private javax.swing.JLabel characterLabel;
+    private javax.swing.JButton checkButton;
+    private javax.swing.JLabel countLabel;
+    private javax.swing.JLabel descriptionLabel;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton nextButton;
+    private javax.swing.JLabel pinyinLabel;
+    private javax.swing.JButton prevButton;
     // End of variables declaration//GEN-END:variables
 
     public void initializeDisplay() {
@@ -262,7 +280,7 @@ public class Display extends javax.swing.JFrame {
             ge.registerFont(font);
 
             font = font.deriveFont(128f);
-            this.jLabel1.setFont(font);
+            this.characterLabel.setFont(font);
         } catch (FontFormatException | IOException ex) {
             System.out.println("Um erro ocorreu! " + ex.getMessage());
         }
@@ -286,24 +304,25 @@ public class Display extends javax.swing.JFrame {
 
     private void updateDisplay() {
         if (controller.getCurrentCharacter() != null) {
-            this.jLabel1.setText(controller.getCurrentCharacter().getCharacter());
-            this.jLabel2.setText(controller.getCurrentCharacter().getPinyin());
-            this.jLabel3.setText(controller.getCurrentCharacter().getDescription());
+            this.characterLabel.setText(controller.getCurrentCharacter().getCharacter());
+            this.pinyinLabel.setText(controller.getCurrentCharacter().getPinyin());
+            this.descriptionLabel.setText(controller.getCurrentCharacter().getDescription());
             if (controller.isCurrentPositionCorrect()) {
                 this.getContentPane().setBackground(Color.green);
-                this.jTextField1.setEditable(false);
-                this.jTextField1.setText(controller.getCurrentCharacter().getPinyin());
+                this.answerInput.setEditable(false);
+                this.answerInput.setText(controller.getCurrentCharacter().getPinyin());
             } else {
                 this.getContentPane().setBackground(this.defaultColor);
-                this.jTextField1.setEditable(true);
-                this.jTextField1.setText("");
+                this.answerInput.setEditable(true);
+                this.answerInput.setText("");
             }
+            this.countLabel.setText(Integer.toString(controller.getCurrentPosition()+1)+"/"+Integer.toString(controller.getCharacterCount()));
             controlPinyinDescription();
         }
     }
 
     private void controlPinyinDescription() {
-        this.jLabel2.setVisible(controller.isShowPinyinAndDescription() || controller.isCurrentPositionCorrect());
-        this.jLabel3.setVisible(controller.isShowPinyinAndDescription() || controller.isCurrentPositionCorrect());
+        this.pinyinLabel.setVisible(controller.isShowPinyinAndDescription() || controller.isCurrentPositionCorrect());
+        this.descriptionLabel.setVisible(controller.isShowPinyinAndDescription() || controller.isCurrentPositionCorrect());
     }
 }
