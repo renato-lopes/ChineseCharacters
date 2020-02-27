@@ -7,8 +7,11 @@ package model;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -23,13 +26,13 @@ public class DataLoader {
         List<ChineseCharacter> list = new ArrayList<>();
 
         try {
-            
+
             BufferedReader br = new BufferedReader(new FileReader(file));
 
             String st;
 
             st = br.readLine(); // Discard first line 
-            
+
             while ((st = br.readLine()) != null) {
                 String[] lineData = st.split(",");
                 ChineseCharacter c = new ChineseCharacter();
@@ -44,6 +47,15 @@ public class DataLoader {
         }
 
         return list;
+    }
+
+    public static InputStream readFont(String filename) throws FileNotFoundException {
+        InputStream input = DataLoader.class.getResourceAsStream("/res/fonts/" + filename);
+        if (input == null) {
+            // this is how we load file within editor (eg eclipse)
+            input = new FileInputStream(new File("res/fonts/" + filename));
+        }
+        return input;
     }
 
 }

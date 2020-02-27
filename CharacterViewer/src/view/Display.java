@@ -19,6 +19,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import model.ChineseCharacter;
+import model.DataLoader;
 
 /**
  *
@@ -253,7 +254,7 @@ public class Display extends javax.swing.JFrame {
 
     public void initializeDisplay() {
         try {
-            Font font = Font.createFont(Font.TRUETYPE_FONT, new File("res/fonts/SimSun.ttf"));
+            Font font = Font.createFont(Font.TRUETYPE_FONT, DataLoader.readFont("SimSun.ttf"));
 
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(font);
