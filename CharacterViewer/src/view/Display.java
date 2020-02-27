@@ -30,7 +30,7 @@ public class Display extends javax.swing.JFrame {
     private Controller controller;
     private Color defaultColor;
     private ActionListener updateDisplayListener;
-    private Timer wrongAnswerTimer;
+    private Timer updateDisplayTimer;
 
     /**
      * Creates new form Display
@@ -212,9 +212,11 @@ public class Display extends javax.swing.JFrame {
             if (!controller.isCurrentPositionCorrect()) {
 //                JOptionPane.showMessageDialog(rootPane, "Incorrect!");
                 this.getContentPane().setBackground(Color.red);
-                this.wrongAnswerTimer.start();
+                this.updateDisplayTimer.start();
             } else {
                 updateDisplay();
+                controller.forward();
+                this.updateDisplayTimer.start();
             }
         }
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -277,8 +279,8 @@ public class Display extends javax.swing.JFrame {
             }
         };
         
-        this.wrongAnswerTimer = new Timer(1000, this.updateDisplayListener);
-        this.wrongAnswerTimer.setRepeats(false);
+        this.updateDisplayTimer = new Timer(250, this.updateDisplayListener);
+        this.updateDisplayTimer.setRepeats(false);
         
     }
 
