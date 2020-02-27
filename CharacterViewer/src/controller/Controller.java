@@ -56,7 +56,7 @@ public class Controller {
         boolean correct = this.currentCharacter.checkCorrectPinyin(answer.trim().toLowerCase());
         this.correctState[this.currentPosition] = correct;
     }
-    
+
     public void resetCorrectState() {
         for (int i = 0; i < this.correctState.length; i++) {
             this.correctState[i] = false;

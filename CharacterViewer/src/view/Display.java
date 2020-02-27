@@ -10,11 +10,14 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 import model.ChineseCharacter;
 
 /**
@@ -25,6 +28,8 @@ public class Display extends javax.swing.JFrame {
 
     private Controller controller;
     private Color defaultColor;
+    private ActionListener updateDisplayListener;
+    private Timer wrongAnswerTimer;
 
     /**
      * Creates new form Display
@@ -204,7 +209,9 @@ public class Display extends javax.swing.JFrame {
         if (!controller.isCurrentPositionCorrect() && !jTextField1.getText().isEmpty()) {
             controller.checkAnswer(jTextField1.getText());
             if (!controller.isCurrentPositionCorrect()) {
-                JOptionPane.showMessageDialog(rootPane, "Incorrect!");
+//                JOptionPane.showMessageDialog(rootPane, "Incorrect!");
+                this.getContentPane().setBackground(Color.red);
+                this.wrongAnswerTimer.start();
             } else {
                 updateDisplay();
             }
@@ -213,7 +220,12 @@ public class Display extends javax.swing.JFrame {
 
     private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            this.jButton3.doClick();
+            if (controller.isCurrentPositionCorrect()){
+                controller.forward();
+                updateDisplay();
+            } else {
+                this.jButton3.doClick();
+            }
         }
     }//GEN-LAST:event_jTextField1KeyPressed
 
@@ -255,6 +267,18 @@ public class Display extends javax.swing.JFrame {
         this.defaultColor = this.getContentPane().getBackground();
         updateDisplay();
         controlPinyinDescription();
+        
+        // Wrong answer timer
+        this.updateDisplayListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                updateDisplay();
+            }
+        };
+        
+        this.wrongAnswerTimer = new Timer(1000, this.updateDisplayListener);
+        this.wrongAnswerTimer.setRepeats(false);
+        
     }
 
     private void updateDisplay() {
