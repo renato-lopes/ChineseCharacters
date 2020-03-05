@@ -5,6 +5,7 @@
  */
 package view;
 
+import characterviewer.CharacterViewer;
 import controller.Controller;
 import java.awt.Color;
 import java.awt.Font;
@@ -269,7 +270,7 @@ public class Display extends javax.swing.JFrame {
     }//GEN-LAST:event_answerInputActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        JOptionPane.showMessageDialog(this, "<html><h1> Chinese Characters Practice App </h1><h4>Developed py Renato.</h4><h4>renato.junior@dcc.ufmg.br</h4></html>");
+        JOptionPane.showMessageDialog(this, "<html><h1> Chinese Characters Practice App - v"+CharacterViewer.VERSION+"</h1><h4>Developed py Renato.</h4><h4>renato.junior@dcc.ufmg.br</h4></html>");
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
 

@@ -12,6 +12,8 @@ import controller.Controller;
  * @author renatojuniortmp
  */
 public class CharacterViewer {
+    
+    public static String VERSION = "0.1";
 
     /**
      * @param args the command line arguments
