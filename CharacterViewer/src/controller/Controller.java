@@ -57,8 +57,6 @@ public class Controller {
         answer = Normalizer.normalize(answer, Normalizer.Form.NFD).replaceAll("\\p{M}", "");
         String char_pinyin = this.currentCharacter.getPinyin().trim().toLowerCase().replaceAll("\\s+", "");
         char_pinyin = Normalizer.normalize(char_pinyin, Normalizer.Form.NFD).replaceAll("\\p{M}", "");
-        System.out.println(char_pinyin);
-        System.out.println(answer);
         boolean correct = char_pinyin.equals(answer);
         this.correctState[this.currentPosition] = correct;
     }

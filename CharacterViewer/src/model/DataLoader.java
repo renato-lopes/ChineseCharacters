@@ -42,8 +42,9 @@ public class DataLoader {
                 c.setLevel(lineData.length == 4 ? lineData[3].trim() : null);
                 list.add(c);
             }
-        } catch (IOException ex) {
+        } catch (IOException | ArrayIndexOutOfBoundsException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao abrir o arquivo " + file.getName());
+            System.exit(-1);
         }
 
         return list;
