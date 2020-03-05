@@ -6,6 +6,7 @@
 package view;
 
 import java.io.File;
+import java.net.URISyntaxException;
 import javax.swing.JFileChooser;
 
 /**
@@ -14,7 +15,11 @@ import javax.swing.JFileChooser;
  */
 public class FileSelector {
     public static File chooseFile(){
-        JFileChooser jfc = new JFileChooser(".");
+        JFileChooser jfc = new JFileChooser();
+        try {
+            jfc.setCurrentDirectory(new File(FileSelector.class.getProtectionDomain().getCodeSource().getLocation().toURI()));
+        } catch (URISyntaxException ex) {
+        }
         if(jfc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
             return jfc.getSelectedFile();
         }
