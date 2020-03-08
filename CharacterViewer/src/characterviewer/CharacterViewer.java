@@ -13,7 +13,7 @@ import controller.Controller;
  */
 public class CharacterViewer {
     
-    public static String VERSION = "0.1";
+    public static String VERSION = "0.2";
 
     /**
      * @param args the command line arguments
