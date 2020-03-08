@@ -25,6 +25,7 @@ public class Controller {
     private ChineseCharacter currentCharacter;
     private int currentPosition;
     private boolean showPinyinAndDescription;
+    private boolean checkTones;
 
     public void startViewer() {
         Display display = new Display(this);
@@ -35,6 +36,7 @@ public class Controller {
 
             this.currentPosition = 0;
             this.showPinyinAndDescription = false;
+            this.checkTones = true;
             this.currentCharacter = this.characters.get(0);
             this.correctState = new boolean[this.characters.size()];
             for (int i = 0; i < this.characters.size(); i++) {
@@ -57,6 +59,10 @@ public class Controller {
         answer = Normalizer.normalize(answer, Normalizer.Form.NFD).replaceAll("\\p{M}", "");
         String char_pinyin = this.currentCharacter.getPinyin().trim().toLowerCase().replaceAll("\\s+", "");
         char_pinyin = Normalizer.normalize(char_pinyin, Normalizer.Form.NFD).replaceAll("\\p{M}", "");
+        if (!checkTones) {
+            answer = answer.replaceAll("[0-9]","");
+            char_pinyin = char_pinyin.replaceAll("[0-9]","");
+        }
         boolean correct = char_pinyin.equals(answer);
         this.correctState[this.currentPosition] = correct;
     }
@@ -85,6 +91,10 @@ public class Controller {
     public void changeShowPinyinAndDescription() {
         this.showPinyinAndDescription = !this.showPinyinAndDescription;
     }
+    
+    public void changeCheckTones() {
+        this.checkTones = !this.checkTones;
+    }
 
     public boolean isCurrentPositionCorrect() {
         return this.correctState[this.currentPosition];
@@ -108,5 +118,9 @@ public class Controller {
 
     public int getCharacterCount() {
         return this.characters.size();
+    }
+
+    public boolean isCheckTones() {
+        return checkTones;
     }
 }

@@ -32,6 +32,7 @@ public class Display extends javax.swing.JFrame {
     private Color defaultColor;
     private ActionListener updateDisplayListener;
     private Timer updateDisplayTimer;
+    private boolean wrongAnswer;
 
     /**
      * Creates new form Display
@@ -62,6 +63,7 @@ public class Display extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
+        jCheckBoxMenuItem2 = new javax.swing.JCheckBoxMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -127,6 +129,15 @@ public class Display extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jCheckBoxMenuItem1);
+
+        jCheckBoxMenuItem2.setSelected(true);
+        jCheckBoxMenuItem2.setText("Check tones");
+        jCheckBoxMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jCheckBoxMenuItem2);
 
         jMenuItem1.setText("Exit");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -240,6 +251,7 @@ public class Display extends javax.swing.JFrame {
             if (!controller.isCurrentPositionCorrect()) {
 //                JOptionPane.showMessageDialog(rootPane, "Incorrect!");
                 this.getContentPane().setBackground(Color.red);
+                this.wrongAnswer = true;
                 this.updateDisplayTimer.start();
             } else {
                 updateDisplay();
@@ -273,6 +285,12 @@ public class Display extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "<html><h1> Chinese Characters Practice App - v"+CharacterViewer.VERSION+"</h1><h4>Developed py Renato.</h4><h4>renato.junior@dcc.ufmg.br</h4></html>");
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jCheckBoxMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem2ActionPerformed
+        controller.changeCheckTones();
+        this.jCheckBoxMenuItem2.setSelected(controller.isCheckTones());
+        controlPinyinDescription();
+    }//GEN-LAST:event_jCheckBoxMenuItem2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField answerInput;
@@ -281,6 +299,7 @@ public class Display extends javax.swing.JFrame {
     private javax.swing.JLabel countLabel;
     private javax.swing.JLabel descriptionLabel;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -306,7 +325,9 @@ public class Display extends javax.swing.JFrame {
             System.out.println("Um erro ocorreu! " + ex.getMessage());
         }
         this.jCheckBoxMenuItem1.setSelected(controller.isShowPinyinAndDescription());
+        this.jCheckBoxMenuItem2.setSelected(controller.isCheckTones());
         this.defaultColor = this.getContentPane().getBackground();
+        this.wrongAnswer = false;
         updateDisplay();
         controlPinyinDescription();
         
@@ -335,7 +356,11 @@ public class Display extends javax.swing.JFrame {
             } else {
                 this.getContentPane().setBackground(this.defaultColor);
                 this.answerInput.setEditable(true);
-                this.answerInput.setText("");
+                if (!wrongAnswer) {
+                    this.answerInput.setText("");
+                } else {
+                    this.wrongAnswer = false;
+                }
             }
             this.countLabel.setText(Integer.toString(controller.getCurrentPosition()+1)+"/"+Integer.toString(controller.getCharacterCount()));
             controlPinyinDescription();
