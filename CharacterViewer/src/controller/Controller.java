@@ -7,8 +7,11 @@ package controller;
 
 import java.io.File;
 import java.text.Normalizer;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import model.ChineseCharacter;
 import model.DataLoader;
 import view.Display;
@@ -20,34 +23,81 @@ import view.FileSelector;
  */
 public class Controller {
 
+    public static final String ALL_LEVELS = "ALL";
+    
     private List<ChineseCharacter> characters;
+    private List<ChineseCharacter> currentCharacterList;
     private boolean[] correctState;
     private ChineseCharacter currentCharacter;
     private int currentPosition;
     private boolean showPinyinAndDescription;
     private boolean checkTones;
-
-    public void startViewer() {
-        Display display = new Display(this);
+    private String currentLevel;
+    
+    public Controller() {
         File file = FileSelector.chooseFile();
         if (file != null) {
             this.characters = DataLoader.getData(file);
-            shuffleList(this.characters);
-
-            this.currentPosition = 0;
-            this.showPinyinAndDescription = false;
-            this.checkTones = true;
-            this.currentCharacter = this.characters.get(0);
-            this.correctState = new boolean[this.characters.size()];
-            for (int i = 0; i < this.characters.size(); i++) {
-                this.correctState[i] = false;
-            }
-
-            display.initializeDisplay();
-            display.setVisible(true);
         } else {
             System.exit(0);
         }
+        this.showPinyinAndDescription = false;
+        this.checkTones = true;
+    }
+
+    public void startViewer() {
+        Display display = new Display(this);
+        shuffleList(this.characters);
+
+        setCurrentLevel(ALL_LEVELS);
+        resetCharactersControlVariables();
+
+        display.initializeDisplay();
+        display.setVisible(true);
+    }
+    
+    private void resetCharactersControlVariables() {
+        this.currentPosition = 0;
+        this.currentCharacter = this.currentCharacterList.get(0);
+        this.correctState = new boolean[this.currentCharacterList.size()];
+        for (int i = 0; i < this.correctState.length; i++) {
+            this.correctState[i] = false;
+        }
+    }
+    
+    public void reset() {
+        this.resetCharactersControlVariables();
+    }
+    
+    public void setCurrentLevel(String level) throws IllegalArgumentException {
+        if (!level.equals(ALL_LEVELS) && !getAvailableLevels().contains(level)) {
+            throw new IllegalArgumentException("Invalid Level");
+        }
+        this.currentLevel = level;
+        updateCharacterList();
+        resetCharactersControlVariables();
+    }
+    
+    private void updateCharacterList() {
+        if (this.currentLevel.equals(ALL_LEVELS)) {
+            this.currentCharacterList = this.characters;
+        } else {
+            List<ChineseCharacter> charList = new ArrayList<>();
+            for (ChineseCharacter c : this.characters) {
+                if(c.getLevel().equals(this.currentLevel)) {
+                    charList.add(c);
+                }
+            }
+            this.currentCharacterList = charList;
+        }
+    }
+    
+    public Set<String> getAvailableLevels() {
+        Set<String> levels = new HashSet<>();
+        for (ChineseCharacter c : this.characters) {
+            levels.add(c.getLevel());
+        }
+        return levels;
     }
 
     private void shuffleList(List list) {
@@ -67,25 +117,27 @@ public class Controller {
         this.correctState[this.currentPosition] = correct;
     }
 
-    public void resetCorrectState() {
-        for (int i = 0; i < this.correctState.length; i++) {
-            this.correctState[i] = false;
-        }
-    }
-
     public void forward() {
-        int newPosition = (this.currentPosition + 1) % this.characters.size();
-        this.currentCharacter = this.characters.get(newPosition);
+        int newPosition = (this.currentPosition + 1) % this.currentCharacterList.size();
+        this.currentCharacter = this.currentCharacterList.get(newPosition);
         this.currentPosition = newPosition;
     }
 
     public void backward() {
-        int newPosition = (this.currentPosition - 1) % this.characters.size();
+        int newPosition = (this.currentPosition - 1) % this.currentCharacterList.size();
         if (newPosition < 0) {
-            newPosition += this.characters.size();
+            newPosition += this.currentCharacterList.size();
         }
-        this.currentCharacter = this.characters.get(newPosition);
+        this.currentCharacter = this.currentCharacterList.get(newPosition);
         this.currentPosition = newPosition;
+    }
+    
+    public void setIndex(int i) throws IllegalArgumentException {
+        if (i < 0 || i >= this.currentCharacterList.size()) {
+            throw new IllegalArgumentException("Invalid Index!");
+        }
+        this.currentCharacter = this.currentCharacterList.get(i);
+        this.currentPosition = i;
     }
 
     public void changeShowPinyinAndDescription() {
@@ -117,7 +169,7 @@ public class Controller {
     }
 
     public int getCharacterCount() {
-        return this.characters.size();
+        return this.currentCharacterList.size();
     }
 
     public boolean isCheckTones() {

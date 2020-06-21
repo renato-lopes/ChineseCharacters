@@ -66,6 +66,7 @@ public class Display extends javax.swing.JFrame {
         jCheckBoxMenuItem2 = new javax.swing.JCheckBoxMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -118,6 +119,11 @@ public class Display extends javax.swing.JFrame {
         });
 
         countLabel.setText("jLabel4");
+        countLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                countLabelMouseClicked(evt);
+            }
+        });
 
         jMenu1.setText("File");
 
@@ -151,7 +157,15 @@ public class Display extends javax.swing.JFrame {
 
         jMenu2.setText("Characters");
 
-        jMenuItem2.setText("Reset");
+        jMenuItem4.setText("Set Level...");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem4);
+
+        jMenuItem2.setText("Reset Answers");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
@@ -273,7 +287,7 @@ public class Display extends javax.swing.JFrame {
     }//GEN-LAST:event_answerInputKeyPressed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        controller.resetCorrectState();
+        controller.reset();
         updateDisplay();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
@@ -291,6 +305,31 @@ public class Display extends javax.swing.JFrame {
         controlPinyinDescription();
     }//GEN-LAST:event_jCheckBoxMenuItem2ActionPerformed
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        String level = JOptionPane.showInputDialog(rootPane, "Type in the level:", "Level Selection", JOptionPane.QUESTION_MESSAGE);
+        if (level != null) {
+            try {
+                controller.setCurrentLevel(level);
+            } catch (IllegalArgumentException e) {
+                JOptionPane.showMessageDialog(rootPane, "Invalid level!", "Level Selection", JOptionPane.ERROR_MESSAGE);
+            }
+            updateDisplay();
+        }
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void countLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_countLabelMouseClicked
+        String index = JOptionPane.showInputDialog(rootPane, "Type in the index:", "Index Selection", JOptionPane.QUESTION_MESSAGE);
+        if (index != null) {
+            try {
+                int i = Integer.parseInt(index);
+                controller.setIndex(i-1);
+            } catch (IllegalArgumentException e) {
+                JOptionPane.showMessageDialog(rootPane, "Invalid index!", "Index Selection", JOptionPane.ERROR_MESSAGE);
+            }
+            updateDisplay();
+        }
+    }//GEN-LAST:event_countLabelMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField answerInput;
@@ -307,6 +346,7 @@ public class Display extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JButton nextButton;
     private javax.swing.JLabel pinyinLabel;
     private javax.swing.JButton prevButton;

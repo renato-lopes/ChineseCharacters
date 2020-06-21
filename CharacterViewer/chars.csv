@@ -23,7 +23,7 @@ char,pinyin,description,level
 法语,fa3yu3,Francês (língua),1
 都,dou1,todo; todos,1
 只,zhi3,apenas; só,1
-汉语,han4hu3,Chinês (língua),1
+汉语,han4yu3,Chinês (língua),1
 他,ta1,ele,1
 她,ta1,ela,1
 中国,zhong1guo2,China,1
@@ -33,7 +33,7 @@ char,pinyin,description,level
 英文,ying1wen2,Inglês (língua),1
 西文,xi1wen2,Espanhol (língua),1
 普通话,pu3tong1hua4,Mandarim,1
-英国,ting1guo2,Reino Unido,1
+英国,ying1guo2,Reino Unido,1
 俄罗斯,e2luo2si1,Rússia,1
 法国,fa3guo2,França,1
 德国,de2guo2,Alemanha,1
@@ -58,3 +58,38 @@ char,pinyin,description,level
 零,ling2,zero,2
 发,fa1,enviar;mandar,2
 电子邮件,dian4zi3you2jian4,E-mail,2
+这,zhe4,este(a),2
+女,nv3,feminino,2
+男,nan2,masculino,2
+朋友,peng2you,amigo,2
+清,qing3,fazer favor,2
+进,jin4,entrar,2
+坐,zuo4,sentar-se,2
+谢谢,xie4xie,obrigado,2
+喝,he1,beber,2
+茶,cha2,chá,2
+哪儿,na3r,onde,2
+学院,xue2yuan4,instituto,2
+怎么样,zen3meyang4,como,2
+大,da4,grande,2
+漂亮,piao4liang,bonita,2
+喜欢,xi3huan,gostar,2
+那,na4,aquele,2
+小,xiao3,pequeno,2
+地方,di4fang,lugar,3
+个,ge4,p.c. geral,3
+家,jia1,família; casa,3
+有,you3,ter; haver,3
+几,ji3,quantos,3
+口,kou3,p.c. pessoas na família,3
+这儿,zher4,aqui,3
+爸爸,ba4ba,pai,3
+妈妈,ma1ma,mãe,3
+和,he2,e,3
+太太,tai4tai,esposa,3
+孩子,hai2zi,criança; filho,3
+多大,duo1da4,quantos anos,3
+两,liang3,dois,3
+岁,sui4,anos de idade,3
+可爱,ke3ai2,querido; fofo,3
+把,ba,part. imperativo,3
